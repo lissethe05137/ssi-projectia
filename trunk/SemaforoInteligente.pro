@@ -18,3 +18,6 @@ HEADERS  += mainwindow.h \
     semaforo.h
 
 FORMS    += mainwindow.ui
+
+OTHER_FILES += \
+    SemaforoInteligente/as
