@@ -9,7 +9,7 @@ using namespace std;
 class Semaforo
 {
 
-    string nombre;
+    string nombre; //nombre semaforo
     int peso1;
     int peso2;
     int peso3;
