@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/abrir.png</file>
+        <file>images/aceptar.png</file>
+        <file>images/acercade.png</file>
+        <file>images/ajustar.png</file>
+        <file>images/cancel.png</file>
+        <file>images/cerrar.png</file>
+        <file>images/drive-harddisk.png</file>
+        <file>images/guardar.png</file>
+        <file>images/interseccion.png</file>
+        <file>images/nuevo.svg</file>
+        <file>images/nuevo2.png</file>
+        <file>images/ver.png</file>
+        <file>images/zoom-in.png</file>
+        <file>images/zoom-normal.png</file>
+        <file>images/zoom-out.png</file>
+    </qresource>
+</RCC>

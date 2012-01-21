@@ -19,5 +19,5 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-OTHER_FILES += \
-    SemaforoInteligente/as
+RESOURCES += \
+    recursos.qrc

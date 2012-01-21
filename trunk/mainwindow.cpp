@@ -18,22 +18,22 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::crearAction()
 {
-    actionNuevo = new QAction(QIcon("images/nuevo.svg"),"&Nuevo", this);
+    actionNuevo = new QAction(QIcon(":/images/nuevo.svg"),"&Nuevo", this);
     actionNuevo->setShortcut(tr("Ctrl+n"));
     actionNuevo->setStatusTip(tr("Crear un Archivo Nuevo"));
     connect(actionNuevo, SIGNAL(triggered()), this, SLOT(Nuevo()));
 
-    actionAbrir = new QAction(QIcon("images/abrir.png"),"&Abrir", this);
+    actionAbrir = new QAction(QIcon(":/images/abrir.png"),"&Abrir", this);
     actionAbrir->setShortcut(tr("Ctrl+o"));
     actionAbrir->setStatusTip(tr("Abrir un Archivo"));
     connect(actionAbrir, SIGNAL(triggered()), this, SLOT(close()));
 
-    actionSalir = new QAction(QIcon("images/cerrar.png"),"&Salir", this);
+    actionSalir = new QAction(QIcon(":/images/cerrar.png"),"&Salir", this);
     actionSalir->setShortcut(tr("Ctrl+s"));
     actionSalir->setStatusTip(tr("Salir del Sistema"));
     connect(actionSalir, SIGNAL(triggered()), this, SLOT(close()));
 
-    actionAcerca = new QAction(QIcon("images/acercade.png"),"&Acerca de", this);
+    actionAcerca = new QAction(QIcon(":/images/acercade.png"),"&Acerca de", this);
     actionAcerca->setStatusTip(tr("Acerca de SSI"));
     connect(actionAcerca, SIGNAL(triggered()), this, SLOT(Acercade()));
 
@@ -71,7 +71,7 @@ void MainWindow::Nuevo()
     fLayout->setAlignment(Qt::AlignCenter);
     fLayout->addRow(lblInterseccion,boxInterseccion);
 
-    QImage imageInterseccion("images/interseccion.png");
+    QImage imageInterseccion(":/images/interseccion.png");
 
     lblImagen = new QLabel();
     lblImagen->setPixmap(QPixmap::fromImage(imageInterseccion));
@@ -84,8 +84,8 @@ void MainWindow::Nuevo()
 
     vLayout->addLayout(hLayout);
 
-    QPushButton *btnAceptar = new QPushButton(QIcon("images/aceptar.png"),"&Aceptar");
-    QPushButton *btnCancelar = new QPushButton(QIcon("images/cancel.png"),"&Cancelar");
+    QPushButton *btnAceptar = new QPushButton(QIcon(":/images/aceptar.png"),"&Aceptar");
+    QPushButton *btnCancelar = new QPushButton(QIcon(":/images/cancel.png"),"&Cancelar");
 
     connect(btnAceptar, SIGNAL(clicked()), this, SLOT(Aceptar()));
     connect(btnCancelar, SIGNAL(clicked()), this, SLOT(Limpiar()));
