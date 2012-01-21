@@ -15,5 +15,6 @@
         <file>images/zoom-in.png</file>
         <file>images/zoom-normal.png</file>
         <file>images/zoom-out.png</file>
+        <file>images/semaforo.png</file>
     </qresource>
 </RCC>

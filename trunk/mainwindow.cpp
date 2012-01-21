@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     setWindowTitle("SSI - Sistema de Semaforo Inteligente");
+    setWindowIcon(QIcon(":/images/semaforo.png"));
     showMaximized();
 
     crearAction();
