@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtGui>
+#include <animationwidget.h>
 #include <semaforo.h>
 #include <vector>
 
@@ -14,6 +15,8 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     void crearAction();
@@ -22,10 +25,10 @@ public:
     ~MainWindow();
 
 private slots:
-    void Nuevo();
-    void Acercade();
-    void Limpiar();
-    void Aceptar();
+    void slot_nuevo();
+    void slot_acercade();
+    void slot_limpiar();
+    void slot_aceptar();
 
 private:
     Ui::MainWindow *ui;

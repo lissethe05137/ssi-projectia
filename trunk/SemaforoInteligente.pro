@@ -12,12 +12,28 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    semaforo.cpp
+    semaforo.cpp \
+    animationwidget.cpp \
+    automovil.cpp
 
 HEADERS  += mainwindow.h \
-    semaforo.h
+    semaforo.h \
+    animationwidget.h \
+    automovil.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     recursos.qrc
+
+#Incluir de libreria swipl5.11 y gsl.
+CONFIG += warn_off
+
+INCLUDEPATH += /home/antonio/Escritorio/swipl-5.10.3/include
+INCLUDEPATH += /usr/local/include/gsl
+
+LIBS += -L/home/antonio/Escritorio/swipl-5.10.3/lib/i686-linux
+LIBS += -L/usr/local/include/gsl -lgsl -lgslcblas -lm
+
+DEPENDPATH += /home/antonio/Escritorio/swipl-5.10.3/include
+DEPENDPATH += /usr/local/include/gsl

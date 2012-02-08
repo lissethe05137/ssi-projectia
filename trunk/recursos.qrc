@@ -16,5 +16,22 @@
         <file>images/zoom-normal.png</file>
         <file>images/zoom-out.png</file>
         <file>images/semaforo.png</file>
+        <file>images/CarroRight.png</file>
+        <file>images/CarroLeft.png</file>
+        <file>images/CarroUp.png</file>
+        <file>images/CarroDown.png</file>
+        <file>images/AmbulanciaDown.png</file>
+        <file>images/AmbulanciaLeft.png</file>
+        <file>images/AmbulanciaRight.png</file>
+        <file>images/AmbulanciaUp.png</file>
+        <file>images/BomberoDown.png</file>
+        <file>images/BomberoLeft.png</file>
+        <file>images/BomberoRight.png</file>
+        <file>images/BomberoUp.png</file>
+        <file>images/PoliciaDown.png</file>
+        <file>images/PoliciaLeft.png</file>
+        <file>images/PoliciaRight.png</file>
+        <file>images/PoliciaUp.png</file>
+        <file>images/fondo.png</file>
     </qresource>
 </RCC>

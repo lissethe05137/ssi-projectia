@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     crearMenuBar();
 
     srand(time(NULL));
+
 }
 
 void MainWindow::crearAction()
@@ -22,7 +23,7 @@ void MainWindow::crearAction()
     actionNuevo = new QAction(QIcon(":/images/nuevo.svg"),"&Nuevo", this);
     actionNuevo->setShortcut(tr("Ctrl+n"));
     actionNuevo->setStatusTip(tr("Crear un Archivo Nuevo"));
-    connect(actionNuevo, SIGNAL(triggered()), this, SLOT(Nuevo()));
+    connect(actionNuevo, SIGNAL(triggered()), this, SLOT(slot_nuevo()));
 
     actionAbrir = new QAction(QIcon(":/images/abrir.png"),"&Abrir", this);
     actionAbrir->setShortcut(tr("Ctrl+o"));
@@ -36,7 +37,7 @@ void MainWindow::crearAction()
 
     actionAcerca = new QAction(QIcon(":/images/acercade.png"),"&Acerca de", this);
     actionAcerca->setStatusTip(tr("Acerca de SSI"));
-    connect(actionAcerca, SIGNAL(triggered()), this, SLOT(Acercade()));
+    connect(actionAcerca, SIGNAL(triggered()), this, SLOT(slot_acercade()));
 
 }
 
@@ -52,7 +53,7 @@ void MainWindow::crearMenuBar()
     ayudaMenu->addAction(actionAcerca);
 }
 
-void MainWindow::Nuevo()
+void MainWindow::slot_nuevo()
 {
 
     QLabel *titulo = new QLabel("<h2> Crear Simulaci&oacute;n </h2>");
@@ -88,8 +89,8 @@ void MainWindow::Nuevo()
     QPushButton *btnAceptar = new QPushButton(QIcon(":/images/aceptar.png"),"&Aceptar");
     QPushButton *btnCancelar = new QPushButton(QIcon(":/images/cancel.png"),"&Cancelar");
 
-    connect(btnAceptar, SIGNAL(clicked()), this, SLOT(Aceptar()));
-    connect(btnCancelar, SIGNAL(clicked()), this, SLOT(Limpiar()));
+    connect(btnAceptar, SIGNAL(clicked()), this, SLOT(slot_aceptar()));
+    connect(btnCancelar, SIGNAL(clicked()), this, SLOT(slot_limpiar()));
 
     hLayout = new QHBoxLayout();
     hLayout->setAlignment(Qt::AlignCenter);
@@ -107,12 +108,12 @@ void MainWindow::Nuevo()
 
 }
 
-void MainWindow::Acercade()
+void MainWindow::slot_acercade()
 {
     QMessageBox::about(this,"Acerca de SSI","<h3>SSI - Sistema Semaforo Inteligente</h3><center>Versi&oacute;n 1.0</center>");
 }
 
-void MainWindow::Limpiar()
+void MainWindow::slot_limpiar()
 {
     marco = new QScrollArea();
     marco->setAlignment(Qt::AlignCenter);
@@ -199,36 +200,46 @@ void MainWindow::AlgoritmoBusqueda()
 
 }
 
-void MainWindow::Aceptar()
+void MainWindow::slot_aceptar()
 {
 
-    for(int i = 0; i < 2; i++){
-        AlgoritmoBusqueda();
-    }
 
-    QString cadena;
-    QLabel *lblSecuencia;
+//    AnimationWidget *ventana = new AnimationWidget();
+//    ventana->show();
 
-    QVBoxLayout *vLayout = new QVBoxLayout();
-    vLayout->setAlignment(Qt::AlignCenter);
+//    marco = new QScrollArea();
+//    marco->setAlignment(Qt::AlignCenter);
 
-    for(int i=0; i<secuencia.size(); i++)
-    {
-        cadena = secuencia[i].getNombre().c_str() + tr(" -> ") + QString::number(secuencia[i].TiempoVerde());
-        lblSecuencia = new QLabel();
-        lblSecuencia->setText(cadena);
-        vLayout->addWidget(lblSecuencia);
+//    setCentralWidget(marco);
+//    setEnabled(false);
+
+//    for(int i = 0; i < 2; i++){
+//        AlgoritmoBusqueda();
+//    }
+
+//    QString cadena;
+//    QLabel *lblSecuencia;
+
+//    QVBoxLayout *vLayout = new QVBoxLayout();
+//    vLayout->setAlignment(Qt::AlignCenter);
+
+//    for(int i = 0; i < secuencia.size(); i++)
+//    {
+//        cadena = secuencia[i].getNombre().c_str() + tr(" -> ") + QString::number(secuencia[i].TiempoVerde());
+//        lblSecuencia = new QLabel();
+//        lblSecuencia->setText(cadena);
+//        vLayout->addWidget(lblSecuencia);
 
 
-    }
+//    }
 
-    marco = new QScrollArea();
-    marco->setAlignment(Qt::AlignCenter);
-    marco->setLayout(vLayout);
+//    marco = new QScrollArea();
+//    marco->setAlignment(Qt::AlignCenter);
+//    marco->setLayout(vLayout);
 
-    setCentralWidget(marco);
+//    setCentralWidget(marco);
 
-    secuencia.clear();
+//    secuencia.clear();
 
 }
 
