@@ -13,13 +13,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     semaforo.cpp \
-    animationwidget.cpp \
-    automovil.cpp
+    trafficlight.cpp \
+    automovil.cpp \
+    animationwidget.cpp
 
 HEADERS  += mainwindow.h \
     semaforo.h \
-    animationwidget.h \
-    automovil.h
+    trafficlight.h \
+    automovil.h \
+    animationwidget.h
 
 FORMS    += mainwindow.ui
 

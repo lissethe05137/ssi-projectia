@@ -204,14 +204,14 @@ void MainWindow::slot_aceptar()
 {
 
 
-//    AnimationWidget *ventana = new AnimationWidget();
-//    ventana->show();
+    AnimationWidget *ventana = new AnimationWidget();
+    ventana->show();
 
-//    marco = new QScrollArea();
-//    marco->setAlignment(Qt::AlignCenter);
+    marco = new QScrollArea();
+    marco->setAlignment(Qt::AlignCenter);
 
-//    setCentralWidget(marco);
-//    setEnabled(false);
+    setCentralWidget(marco);
+    setEnabled(false);
 
 //    for(int i = 0; i < 2; i++){
 //        AlgoritmoBusqueda();
