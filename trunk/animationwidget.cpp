@@ -4,6 +4,16 @@ AnimationWidget::AnimationWidget(QWidget *parent) :
     QMainWindow(parent)
 {
 
+    initGui();
+    initAutomovil();
+    initSemaforo();
+
+    startTimer(velocidadAnimation);
+}
+
+void AnimationWidget::initGui()
+{
+
     setWindowTitle("SSI - Sistema de Semaforo Inteligente");
     setWindowIcon(QIcon(":/images/semaforo.png"));
     showMaximized();
@@ -11,9 +21,6 @@ AnimationWidget::AnimationWidget(QWidget *parent) :
     ancho = QApplication::desktop()->width();
     alto = QApplication::desktop()->height();
     setGeometry(0,0,ancho,alto);
-
-    initAutomovil();
-    initSemaforo();
 
     QTimer * timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(countTime()));
@@ -34,7 +41,6 @@ AnimationWidget::AnimationWidget(QWidget *parent) :
     QTime tiempo = QTime::currentTime();
     hora = tiempo.toString("hh:mm:ss ap");
 
-    startTimer(velocidadAnimation);
 }
 
 void AnimationWidget::initAutomovil()
@@ -87,7 +93,7 @@ void AnimationWidget::initSemaforo()
     TrafficLight greenLight, orangeLight, redLight;
 
     //Semaforo 1
-    greenLight.setPoint(344,510);
+    greenLight.setPoint(344,620);
     greenLight.setColor(Qt::green);
     greenLight.setCircle(25,25);
     greenLight.setTiempo(10);
@@ -100,7 +106,7 @@ void AnimationWidget::initSemaforo()
     orangeLight.setTiempo(3);
     listSemaforo1[1] = orangeLight;
 
-    redLight.setPoint(344,620);
+    redLight.setPoint(344,510);
     //redLight.setColor(Qt::red);
     redLight.setColor(Qt::black);
     redLight.setCircle(25,25);
@@ -109,7 +115,7 @@ void AnimationWidget::initSemaforo()
     listSemaforo1[2] = redLight;
 
     //Semaforo 2
-    greenLight.setPoint(695,485);
+    greenLight.setPoint(805,485);
     greenLight.setColor(Qt::black);
     greenLight.setCircle(25,25);
     greenLight.setTiempo(10);
@@ -121,7 +127,7 @@ void AnimationWidget::initSemaforo()
     orangeLight.setTiempo(3);
     listSemaforo2[1] = orangeLight;
 
-    redLight.setPoint(805,485);
+    redLight.setPoint(695,485);
     redLight.setColor(Qt::red);
     redLight.setCircle(25,25);
     redLight.setTiempo(13);
@@ -129,7 +135,7 @@ void AnimationWidget::initSemaforo()
     listSemaforo2[2] = redLight;
 
     //Semaforo 3
-    greenLight.setPoint(668,180);
+    greenLight.setPoint(668,70);
     greenLight.setColor(Qt::black);
     greenLight.setCircle(25,25);
     greenLight.setTiempo(10);
@@ -141,7 +147,7 @@ void AnimationWidget::initSemaforo()
     orangeLight.setTiempo(3);
     listSemaforo3[1] = orangeLight;
 
-    redLight.setPoint(668,70);
+    redLight.setPoint(668,180);
     redLight.setColor(Qt::red);
     redLight.setCircle(25,25);
     redLight.setTiempo((13));
@@ -149,7 +155,7 @@ void AnimationWidget::initSemaforo()
     listSemaforo3[2] = redLight;
 
     //Semaforo 4
-    greenLight.setPoint(320,218);
+    greenLight.setPoint(210,218);
     greenLight.setColor(Qt::black);
     greenLight.setCircle(25,25);
     greenLight.setTiempo(10);
@@ -161,7 +167,7 @@ void AnimationWidget::initSemaforo()
     orangeLight.setTiempo(3);
     listSemaforo4[1] = orangeLight;
 
-    redLight.setPoint(210,218);
+    redLight.setPoint(320,218);
     redLight.setColor(Qt::red);
     redLight.setCircle(25,25);
     redLight.setTiempo((13));

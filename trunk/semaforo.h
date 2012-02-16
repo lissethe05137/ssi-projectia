@@ -16,7 +16,8 @@ class Semaforo
     int cce; //cantidad de carros esperados.
     int cca; //cantidad de carros actual.
     int Ta; //Tiempo actual de espera
-    int Tev; //Tiempo de luz verde
+    int Tev; //Tiempo de luz verde Esperado
+    int timeVerdeV; //Tiempo verde "Verdadero"
 
 public:
     Semaforo();
@@ -38,6 +39,9 @@ public:
     void setTa(int ta);
     int getTev();
     void setTev(int tev);
+
+    void setTimeGreen(int timeVerdeV);
+    int getTimeGreen();
 
     int TiempoVerde();
     int funcionUtilidad();

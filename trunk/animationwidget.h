@@ -5,14 +5,17 @@
 #include <QtGui>
 #include <automovil.h>
 #include <trafficlight.h>
+#include <semaforo.h>
 
 class AnimationWidget : public QMainWindow
 {
     Q_OBJECT
+
 public:
     explicit AnimationWidget(QWidget *parent = 0);
     
 private:
+    void initGui();
     void initAutomovil();
     void initSemaforo();
     void paintEvent(QPaintEvent *);

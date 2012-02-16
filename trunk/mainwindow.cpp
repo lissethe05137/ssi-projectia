@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+using namespace std;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -124,79 +126,126 @@ void MainWindow::slot_limpiar()
 void MainWindow::AlgoritmoBusqueda()
 {
 
-    int peso1 = (1 + rand() % 3);
-    int peso2 = (1 + rand() % 3);
-    int peso3 = (1 + rand() % 3);
-    int cce = (1 + rand() % 20);
-    int cca = (0 + rand() % 30);
-    int ta = (0 + rand() % 60);
-    int tev = (0 + rand() % 25);
+    int count = 1;
 
-    Semaforo sem1("Semaforo 1", peso1, peso2, peso3, cce, cca, ta,tev);
-    cout << "Semaforo 1 -> " << peso1 << " " << peso2 << " " << peso3 << " " << cce << " " << cca << " " << ta << " " << tev << " FOO= " << sem1.funcionUtilidad() << " TV= "<< sem1.TiempoVerde()<< endl;
-
-
-    peso1 = (1 + rand() % 3);
-    peso2 = (1 + rand() % 3);
-    peso3 = (1 + rand() % 3);
-    cce = (1 + rand() % 20);
-    cca = (0 + rand() % 30);
-    ta = (0 + rand() % 60);
-    tev = (0 + rand() % 25);
-
-    Semaforo sem2("Semaforo 2", peso1, peso2, peso3, cce, cca, ta,tev);
-    cout << "Semaforo 2 -> " << peso1 << " " << peso2 << " " << peso3 << " " << cce << " " << cca << " " << ta << " " << tev << " FOO= " << sem2.funcionUtilidad() << " TV= "<< sem2.TiempoVerde()<< endl;
-
-
-    peso1 = (1 + rand() % 3);
-    peso2 = (1 + rand() % 3);
-    peso3 = (1 + rand() % 3);
-    cce = (1 + rand() % 20);
-    cca = (0 + rand() % 30);
-    ta = (0 + rand() % 60);
-    tev = (0 + rand() % 25);
-
-    Semaforo sem3("Semaforo 3", peso1, peso2, peso3, cce, cca, ta,tev);
-    cout << "Semaforo 3 -> " << peso1 << " " << peso2 << " " << peso3 << " " << cce << " " << cca << " " << ta << " " << tev << " FOO= " << sem3.funcionUtilidad() << " TV= "<< sem3.TiempoVerde()<< endl;
-
-
-    peso1 = (1 + rand() % 3);
-    peso2 = (1 + rand() % 3);
-    peso3 = (1 + rand() % 3);
-    cce = (1 + rand() % 20);
-    cca = (0 + rand() % 30);
-    ta = (0 + rand() % 60);
-    tev = (0 + rand() % 25);
-
-    Semaforo sem4("Semaforo 4", peso1, peso2, peso3, cce, cca, ta,tev);
-    cout << "Semaforo 4 -> " << peso1 << " " << peso2 << " " << peso3 << " " << cce << " " << cca << " " << ta<< " " << tev << " FOO= " << sem4.funcionUtilidad() << " TV= "<< sem4.TiempoVerde() << endl;
-
-
-    Semaforo vecSem[4];
-
-
-    vecSem[0] = sem1;
-    vecSem[1] = sem2;
-    vecSem[2] = sem3;
-    vecSem[3] = sem4;
-
-
-    int max,pos = 0;
-
-    max = vecSem[0].funcionUtilidad();
-
-
-    for( int i = 1; i < 4; i++)
+    while( count < 4 )
     {
 
-        if (max < vecSem[i].funcionUtilidad()){
-            max = vecSem[i].funcionUtilidad();
-            pos = i;
+        int peso1 = (1 + rand() % 3);
+        int peso2 = (1 + rand() % 3);
+        int peso3 = (1 + rand() % 3);
+        int cce = (1 + rand() % 20);
+        int cca = (0 + rand() % 30);
+        int ta = (0 + rand() % 60);
+        int tev = (0 + rand() % 25);
+
+        Semaforo sem1("Semaforo 1", peso1, peso2, peso3, cce, cca, ta,tev);
+        cout << "Semaforo 1 -> " << peso1 << " " << peso2 << " " << peso3 << " " << cce << " " << cca << " " << ta << " " << tev << " FOO= " << sem1.funcionUtilidad() << " TV= "<< sem1.TiempoVerde()<< endl;
+
+        peso1 = (1 + rand() % 3);
+        peso2 = (1 + rand() % 3);
+        peso3 = (1 + rand() % 3);
+        cce = (1 + rand() % 20);
+        cca = (0 + rand() % 30);
+        ta = (0 + rand() % 60);
+        tev = (0 + rand() % 25);
+
+        Semaforo sem2("Semaforo 2", peso1, peso2, peso3, cce, cca, ta,tev);
+        cout << "Semaforo 2 -> " << peso1 << " " << peso2 << " " << peso3 << " " << cce << " " << cca << " " << ta << " " << tev << " FOO= " << sem2.funcionUtilidad() << " TV= "<< sem2.TiempoVerde()<< endl;
+
+        peso1 = (1 + rand() % 3);
+        peso2 = (1 + rand() % 3);
+        peso3 = (1 + rand() % 3);
+        cce = (1 + rand() % 20);
+        cca = (0 + rand() % 30);
+        ta = (0 + rand() % 60);
+        tev = (0 + rand() % 25);
+
+        Semaforo sem3("Semaforo 3", peso1, peso2, peso3, cce, cca, ta,tev);
+        cout << "Semaforo 3 -> " << peso1 << " " << peso2 << " " << peso3 << " " << cce << " " << cca << " " << ta << " " << tev << " FOO= " << sem3.funcionUtilidad() << " TV= "<< sem3.TiempoVerde()<< endl;
+
+        peso1 = (1 + rand() % 3);
+        peso2 = (1 + rand() % 3);
+        peso3 = (1 + rand() % 3);
+        cce = (1 + rand() % 20);
+        cca = (0 + rand() % 30);
+        ta = (0 + rand() % 60);
+        tev = (0 + rand() % 25);
+
+        Semaforo sem4("Semaforo 4", peso1, peso2, peso3, cce, cca, ta,tev);
+        cout << "Semaforo 4 -> " << peso1 << " " << peso2 << " " << peso3 << " " << cce << " " << cca << " " << ta<< " " << tev << " FOO= " << sem4.funcionUtilidad() << " TV= "<< sem4.TiempoVerde() << endl;
+
+        Semaforo vecSem[4];
+
+        vecSem[0] = sem1;
+        vecSem[1] = sem2;
+        vecSem[2] = sem3;
+        vecSem[3] = sem4;
+
+
+        int max,pos = 0;
+
+        max = vecSem[0].funcionUtilidad();
+
+
+        for( int i = 1; i < 4; i++)
+        {
+
+            if ( max < vecSem[i].funcionUtilidad() ){
+                max = vecSem[i].funcionUtilidad();
+                pos = i;
+            }
+
         }
 
+        if( vecSem[pos].TiempoVerde() != 0 )
+        {
+            if( secuencia.size() == 0 )
+                secuencia.push_back(vecSem[pos]);
+            else
+            {
+                int flag = 0;
+
+                for( int j = 0; j < secuencia.size(); j++ )
+                {
+                    if( secuencia[j].getNombre() == vecSem[pos].getNombre() )
+                    {
+                        flag = 1;
+                        break;
+                    }
+                }
+
+                secuencia.push_back(vecSem[pos]);
+
+                if( flag == 0 )
+                    count++;
+            }
+        }
     }
 
-    secuencia.push_back(vecSem[pos]);
+    for(int i = 0; i < secuencia.size(); i++ )
+    {
+        secuencia[i].setTimeGreen(secuencia[i].TiempoVerde());
+    }
+
+    int j;
+    for( int i = 0; i < secuencia.size(); i++ )
+    {
+        j = i + 1;
+        if( (secuencia[i].getNombre() == secuencia[j].getNombre()) && (j < secuencia.size()) )
+        {
+            secuencia[i].setTimeGreen(secuencia[i].getTimeGreen() + secuencia[j].getTimeGreen());
+            secuencia.erase(secuencia.begin()+j);
+            i--;
+        }
+    }
+
+    int tam = secuencia.size();
+
+    for( int i = 0; i < 3*tam; i++ )
+    {
+        secuencia.push_back(secuencia[i]);
+    }
 
 }
 
@@ -204,42 +253,38 @@ void MainWindow::slot_aceptar()
 {
 
 
-    AnimationWidget *ventana = new AnimationWidget();
-    ventana->show();
+    //    AnimationWidget *ventana = new AnimationWidget();
+    //    ventana->show();
+
+    //    marco = new QScrollArea();
+    //    marco->setAlignment(Qt::AlignCenter);
+
+    //    setCentralWidget(marco);
+    //    setEnabled(false);
+
+    AlgoritmoBusqueda();
+
+    QString cadena;
+    QLabel *lblSecuencia;
+
+    QVBoxLayout *vLayout = new QVBoxLayout();
+    vLayout->setAlignment(Qt::AlignCenter);
+
+    for(int i = 0; i < secuencia.size(); i++)
+    {
+        cadena = secuencia[i].getNombre().c_str() + tr(" -> ") + QString::number(secuencia[i].getTimeGreen());
+        lblSecuencia = new QLabel();
+        lblSecuencia->setText(cadena);
+        vLayout->addWidget(lblSecuencia);
+    }
 
     marco = new QScrollArea();
     marco->setAlignment(Qt::AlignCenter);
+    marco->setLayout(vLayout);
 
     setCentralWidget(marco);
-    setEnabled(false);
 
-//    for(int i = 0; i < 2; i++){
-//        AlgoritmoBusqueda();
-//    }
-
-//    QString cadena;
-//    QLabel *lblSecuencia;
-
-//    QVBoxLayout *vLayout = new QVBoxLayout();
-//    vLayout->setAlignment(Qt::AlignCenter);
-
-//    for(int i = 0; i < secuencia.size(); i++)
-//    {
-//        cadena = secuencia[i].getNombre().c_str() + tr(" -> ") + QString::number(secuencia[i].TiempoVerde());
-//        lblSecuencia = new QLabel();
-//        lblSecuencia->setText(cadena);
-//        vLayout->addWidget(lblSecuencia);
-
-
-//    }
-
-//    marco = new QScrollArea();
-//    marco->setAlignment(Qt::AlignCenter);
-//    marco->setLayout(vLayout);
-
-//    setCentralWidget(marco);
-
-//    secuencia.clear();
+    secuencia.clear();
 
 }
 
@@ -247,5 +292,3 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-

@@ -15,8 +15,6 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-
-
 public:
     explicit MainWindow(QWidget *parent = 0);
     void crearAction();
@@ -48,7 +46,6 @@ private:
     QComboBox *boxInterseccion;
 
     vector <Semaforo> secuencia;
-
 };
 
 #endif // MAINWINDOW_H
