@@ -40,6 +40,18 @@ public class Semaforo {
         this.numSemaforo = numSemaforo;
     }
     
+    public Semaforo(Semaforo semaforo){
+        this.nombre = semaforo.nombre;
+        this.peso1 = semaforo.peso1;
+        this.peso2 = semaforo.peso2;
+        this.peso3 = semaforo.peso3;
+        this.cce = semaforo.cce;
+        this.cca = semaforo.cca;
+        this.ta = semaforo.ta;
+        this.tev = semaforo.tev;
+        this.numSemaforo = semaforo.numSemaforo;
+    }
+    
     public String getNombre() {
 		return nombre;
 	}

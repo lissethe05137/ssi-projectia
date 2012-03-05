@@ -8,6 +8,8 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +17,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import ui.Recompensa;
+
 import com.ssi.object.Automovil;
 import com.ssi.object.TrafficLight;
 import com.ssi.semaforo.Algoritmo;
+import com.ssi.semaforo.Par;
 import com.ssi.semaforo.Semaforo;
 
 public class SimulationPanel extends JPanel{
@@ -26,6 +31,17 @@ public class SimulationPanel extends JPanel{
 	private int alto;
 
 	private List<Semaforo> listSecuencia = new ArrayList<Semaforo>();
+	Semaforo[] vecSem = new Semaforo[4];
+	Par par = new Par();
+	int [] entreno = new int [4];
+	int congestion;
+	int congestion_aux;
+	int via;
+	int prio;
+	int resultado;
+	boolean flag_s;
+	Recompensa valor = new Recompensa();
+	List<Recompensa> prioridades = new ArrayList<Recompensa>();
 
 	private List<TrafficLight> listSemaforo1 = new ArrayList<TrafficLight>();
 	private List<TrafficLight> listSemaforo2 = new ArrayList<TrafficLight>();
@@ -63,11 +79,70 @@ public class SimulationPanel extends JPanel{
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		ancho = d.width;
 		alto = d.height;
+		
+		vecSem = init_semaforo();
+		congestion =0;
+		
+		for(int i =0; i<4; i++){
+			congestion += vecSem[i].getCca();
+		}
 
 		Algoritmo algoritmo = new Algoritmo();
-		listSecuencia = algoritmo.algoritmoBusqueda();
+		//listSecuencia;
+		par = algoritmo.algoritmoBusqueda(vecSem);		
+		listSecuencia = par.getLista();
+		vecSem = par.getSemaforo();
+		
+		flag_s = false;
+		
+		congestion_aux = congestion;
+		congestion =0;
+		
+		for(int i =0; i<4; i++){
+			congestion += par.getSemaforo()[i].getCca();
+		}
 
 		tam = listSecuencia.size();
+		
+		prio = 0;
+		
+		for( int i = 0; i<4; i++){
+			if ( vecSem[i].getCca() > prio){
+				prio = vecSem[i].getCca();
+				via = i;
+			}
+		}
+		
+		valor.setCola( via);
+		
+		if(congestion < congestion_aux)
+			valor.setRecompensa(1000);					
+		else
+		if(congestion == congestion_aux)
+			valor.setRecompensa(10);						
+		else
+		if(congestion > congestion_aux && congestion <= 65)
+			valor.setRecompensa(100);						
+		
+		if(congestion > congestion_aux){
+			valor.setRecompensa(-1000);
+		}
+		prioridades.add(valor);
+		
+		resultado = 0;
+		
+		for(int i = 0; i<prioridades.size(); i++){					
+			entreno[prioridades.get(i).getCola()] += prioridades.get(i).getRecompensa();					
+		}
+		
+		for(int i = 0; i<4; i++){
+			
+			if ( entreno[i] > resultado){
+				resultado = entreno[i];
+			}
+		}
+		save_file();
+		
 
 		initSemaforo();
 		initVehiculo();
@@ -376,8 +451,72 @@ public class SimulationPanel extends JPanel{
 	public void sincronizarSemaforo()
 	{
 		time.start();
+		Algoritmo algoritmo = new Algoritmo();
 
 		if( iterator < tam ) {
+			
+			
+//			System.out.println(tam + " "+flag_s+" "+iterator);
+			
+			if(flag_s == true){
+				par = new Par();
+				listSecuencia.clear();
+				listSecuencia = new ArrayList<Semaforo>();
+				
+				par = algoritmo.algoritmoBusqueda(vecSem);		
+				listSecuencia = par.getLista();
+				vecSem = par.getSemaforo();
+				
+				tam = listSecuencia.size();
+				
+				congestion_aux = congestion;
+				congestion =0;
+				
+				for(int i =0; i<4; i++){
+					congestion += par.getSemaforo()[i].getCca();
+				}
+				
+				prio = 0;
+				
+				for( int i = 0; i<4; i++){
+					if ( vecSem[i].getCca() > prio){
+						prio = vecSem[i].getCca();
+						via = i;
+					}
+				}
+				
+				valor.setCola( via);
+				
+				if(congestion < congestion_aux)
+					valor.setRecompensa(1000);					
+				else
+				if(congestion == congestion_aux)
+					valor.setRecompensa(10);						
+				else
+				if(congestion > congestion_aux && congestion <= 65)
+					valor.setRecompensa(100);						
+				
+				if(congestion > congestion_aux){
+					valor.setRecompensa(-1000);
+				}
+				prioridades.add(valor);
+				
+				resultado = 0;
+				
+				for(int i = 0; i<prioridades.size(); i++){					
+					entreno[prioridades.get(i).getCola()] += prioridades.get(i).getRecompensa();					
+				}
+				
+				for(int i = 0; i<4; i++){
+					
+					if ( entreno[i] > resultado){
+						resultado = entreno[i];
+					}
+				}
+				save_file();
+
+				flag_s = false;
+			}
 
 			// Semaforo 1
 			if( secuenciaSemaforo == 1 ) {
@@ -487,6 +626,7 @@ public class SimulationPanel extends JPanel{
 		}
 		else {
 			iterator = 0;
+			flag_s = true;
 		}
 
 
@@ -625,5 +765,134 @@ public class SimulationPanel extends JPanel{
 				tiempo4++; 
 		}
 	}
+	
+	public Semaforo[] init_semaforo(){
+		Semaforo[] vecSem = new Semaforo[4];
+		
+		int cce = (int) (Math.random()*10 + 5);
+		int cca = (int) (Math.random()*40 + 5);
+		int ta = (int) (Math.random()*50 + 10);
+		int tev = (int) (Math.random()*15 + 10);
+		int peso1 = asignar_p1(cce);
+		int peso2 = asignar_p2(cca);
+		int peso3 = asignar_p3(ta);
+
+		Semaforo semaforo1 = new Semaforo("Semaforo 1", peso1, peso2, peso3, cce, cca, ta,tev,1);
+		System.out.println( semaforo1.getNombre() + " -> " + peso1 + " " + peso2 + " " + peso3 + " " + //
+				cce + " " + cca + " " + ta + " " + tev + " FOO = " + semaforo1.funcionUtilidad() //
+				+ " TV = " + semaforo1.funcionTiempoVerde() );
+
+		cce = (int) (Math.random()*10 + 5);
+		cca = (int) (Math.random()*25 + 5);
+		ta = (int) (Math.random()*50 + 10);
+		peso1 = asignar_p1(cce);
+		peso2 = asignar_p2(cca);
+		peso3 = asignar_p3(ta);
+		tev = (int) (Math.random()*15 + 10);
+
+		Semaforo semaforo2 = new Semaforo("Semaforo 2", peso1, peso2, peso3, cce, cca, ta,tev,2);
+		System.out.println( semaforo2.getNombre() + " -> " + peso1 + " " + peso2 + " " + peso3 + " " + //
+				cce + " " + cca + " " + ta + " " + tev + " FOO = " + semaforo2.funcionUtilidad() //
+				+ " TV = " + semaforo2.funcionTiempoVerde() );
+
+		cce = (int) (Math.random()*10 + 5);
+		cca = (int) (Math.random()*25 + 5);
+		ta = (int) (Math.random()*50 + 10);
+		peso1 = asignar_p1(cce);
+		peso2 = asignar_p2(cca);
+		peso3 = asignar_p3(ta);
+		tev = (int) (Math.random()*15 + 10);
+
+		Semaforo semaforo3 = new Semaforo("Semaforo 3", peso1, peso2, peso3, cce, cca, ta,tev,3);
+		System.out.println( semaforo3.getNombre() + " -> " + peso1 + " " + peso2 + " " + peso3 + " " + //
+				cce + " " + cca + " " + ta + " " + tev + " FOO = " + semaforo3.funcionUtilidad() //
+				+ " TV = " + semaforo3.funcionTiempoVerde() );
+
+		cce = (int) (Math.random()*10 + 5);
+		cca = (int) (Math.random()*25 + 5);
+		ta = (int) (Math.random()*50 + 10);
+		peso1 = asignar_p1(cce);
+		peso2 = asignar_p2(cca);
+		peso3 = asignar_p3(ta);
+		tev = (int) (Math.random()*15 + 10);
+
+		Semaforo semaforo4 = new Semaforo("Semaforo 4", peso1, peso2, peso3, cce, cca, ta,tev,4);
+		System.out.println( semaforo4.getNombre() + " -> " + peso1 + " " + peso2 + " " + peso3 + " " + //
+				cce + " " + cca + " " + ta + " " + tev + " FOO = " + semaforo4.funcionUtilidad() //
+				+ " TV = " + semaforo4.funcionTiempoVerde() );
+
+		vecSem[0] = semaforo1;
+		vecSem[1] = semaforo2;
+		vecSem[2] = semaforo3;
+		vecSem[3] = semaforo4;		
+		
+		return vecSem;
+	}
+	
+	public int asignar_p1(int cce){
+		int r;
+		if(cce <= 10)
+			r = 1;
+		else
+			if(cce <= 15)
+				r = 2;
+			else
+				r = 3;
+				
+		return r;
+	}
+	
+	public int asignar_p2(int cca){
+		int r;
+		if(cca <= 10)
+			r = 1;
+		else
+			if(cca <= 15)
+				r = 2;
+			else
+				r = 3;					
+		return r;
+	}
+	
+	public int asignar_p3(int ta){
+		int r;
+		if(ta <= 10)
+			r = 1;
+		else
+			if(ta <= 15)
+				r = 2;
+			else
+				r = 3;					
+		return r;
+	}
+	
+	public void save_file()
+    {
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            fichero = new FileWriter("bd.txt", true);
+            pw = new PrintWriter(fichero);
+
+			for(int i = 0; i<4; i++){
+				
+				pw.println(entreno[i]);
+				
+			}
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           // Nuevamente aprovechamos el finally para 
+           // asegurarnos que se cierra el fichero.
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+    }
 
 }

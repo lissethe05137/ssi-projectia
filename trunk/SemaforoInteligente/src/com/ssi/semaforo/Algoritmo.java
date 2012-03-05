@@ -4,74 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Algoritmo {
+	
+	Semaforo[] vecSem = new Semaforo[4];
+	Par par = new Par();
+	int temp;
+	int congestion;
+	int congestion_aux;
 
-	public List<Semaforo> algoritmoBusqueda()
+	public Par algoritmoBusqueda(Semaforo [] semaforo)
 	{
 		List<Semaforo> listSecuencia = new ArrayList<Semaforo>();
 		int count = 1;
 		
+		vecSem = semaforo;
+		congestion =0;
+		
+		for(int i =0; i<4; i++){
+			congestion += vecSem[i].getCca();
+		}
+		System.out.println("Congestion "+congestion);
+		
+		congestion = 0;
+		
 		while( count < 4 )
 		{
-
-			int peso1 = (int) (Math.random()*3 + 1);
-			int peso2 = (int) (Math.random()*3 + 1);
-			int peso3 = (int) (Math.random()*3 + 1);
-			int cce = (int) (Math.random()*20 + 1);
-			int cca = (int) (Math.random()*30);
-			int ta = (int) (Math.random()*60);
-			int tev = (int) (Math.random()*25);
-
-			Semaforo semaforo1 = new Semaforo("Semaforo 1", peso1, peso2, peso3, cce, cca, ta,tev,1);
-			System.out.println( semaforo1.getNombre() + " -> " + peso1 + " " + peso2 + " " + peso3 + " " + //
-					cce + " " + cca + " " + ta + " " + tev + " FOO = " + semaforo1.funcionUtilidad() //
-					+ " TV = " + semaforo1.funcionTiempoVerde() );
-
-			peso1 = (int) (Math.random()*3 + 1);
-			peso2 = (int) (Math.random()*3 + 1);
-			peso3 = (int) (Math.random()*3 + 1);
-			cce = (int) (Math.random()*20 + 1);
-			cca = (int) (Math.random()*30);
-			ta = (int) (Math.random()*60);
-			tev = (int) (Math.random()*25);
-
-			Semaforo semaforo2 = new Semaforo("Semaforo 2", peso1, peso2, peso3, cce, cca, ta,tev,2);
-			System.out.println( semaforo2.getNombre() + " -> " + peso1 + " " + peso2 + " " + peso3 + " " + //
-					cce + " " + cca + " " + ta + " " + tev + " FOO = " + semaforo2.funcionUtilidad() //
-					+ " TV = " + semaforo2.funcionTiempoVerde() );
-
-			peso1 = (int) (Math.random()*3 + 1);
-			peso2 = (int) (Math.random()*3 + 1);
-			peso3 = (int) (Math.random()*3 + 1);
-			cce = (int) (Math.random()*20 + 1);
-			cca = (int) (Math.random()*30);
-			ta = (int) (Math.random()*60);
-			tev = (int) (Math.random()*25);
-
-			Semaforo semaforo3 = new Semaforo("Semaforo 3", peso1, peso2, peso3, cce, cca, ta,tev,3);
-			System.out.println( semaforo3.getNombre() + " -> " + peso1 + " " + peso2 + " " + peso3 + " " + //
-					cce + " " + cca + " " + ta + " " + tev + " FOO = " + semaforo3.funcionUtilidad() //
-					+ " TV = " + semaforo3.funcionTiempoVerde() );
-
-			peso1 = (int) (Math.random()*3 + 1);
-			peso2 = (int) (Math.random()*3 + 1);
-			peso3 = (int) (Math.random()*3 + 1);
-			cce = (int) (Math.random()*20 + 1);
-			cca = (int) (Math.random()*30);
-			ta = (int) (Math.random()*60);
-			tev = (int) (Math.random()*25);
-
-			Semaforo semaforo4 = new Semaforo("Semaforo 4", peso1, peso2, peso3, cce, cca, ta,tev,4);
-			System.out.println( semaforo4.getNombre() + " -> " + peso1 + " " + peso2 + " " + peso3 + " " + //
-					cce + " " + cca + " " + ta + " " + tev + " FOO = " + semaforo4.funcionUtilidad() //
-					+ " TV = " + semaforo4.funcionTiempoVerde() );
-
-			Semaforo[] vecSem = new Semaforo[4];
-
-			vecSem[0] = semaforo1;
-			vecSem[1] = semaforo2;
-			vecSem[2] = semaforo3;
-			vecSem[3] = semaforo4;
-
 			int max,pos = 0;
 
 			max = vecSem[0].funcionUtilidad();
@@ -86,8 +42,11 @@ public class Algoritmo {
 
 			if( vecSem[pos].funcionTiempoVerde() != 0 )
 			{
-				if( listSecuencia.size() == 0 )
-					listSecuencia.add(vecSem[pos]);
+				Semaforo sem;
+				if( listSecuencia.size() == 0 ){
+					sem = new Semaforo(vecSem[pos]);
+					listSecuencia.add(sem);
+				}
 				else
 				{
 					int flag = 0;
@@ -99,15 +58,22 @@ public class Algoritmo {
 							flag = 1;
 							break;
 						}
-					}
-
-					listSecuencia.add(vecSem[pos]);
+					}										
+					sem = new Semaforo(vecSem[pos]);
+					listSecuencia.add(sem);
 
 					if( flag == 0 )
 						count++;
-				}
+				}				
 			}
+			printsem();
+			update(pos);			
+			
 		}
+		for(int i =0; i<4; i++){
+			congestion += vecSem[i].getCca();
+		}
+		System.out.println("Congestion "+congestion);
 		
 		System.out.println( "\n\n\n" );
 	    for(int i = 0; i < listSecuencia.size(); i++ )
@@ -127,11 +93,74 @@ public class Algoritmo {
 	        	i--;
 	        }
 	    }
+	    
+	    par.setLista(listSecuencia);
+	    par.setSemaforo(vecSem);
 
-	    int tam = listSecuencia.size();
-	    for( int i = 0; i < 3*tam; i++ )
-	    	listSecuencia.add(listSecuencia.get(i));
-
-		return listSecuencia;
+		return par;
+	}
+	
+	public void printsem(){
+		for(int i = 0; i<4; i++){
+			System.out.println( vecSem[i].getNombre() + " -> |Peso 1  " + vecSem[i].getPeso1() + "| |Peso 2 " 
+					+ vecSem[i].getPeso2() + "| |Peso 3 " + vecSem[i].getPeso3() + "| |Cce " + //
+					vecSem[i].getCce() + "| |Cca " + vecSem[i].getCca() + "| |Ta " + vecSem[i].getTa() + "| |Tev " + vecSem[i].getTev() + "| FOO = " + vecSem[i].funcionUtilidad() //
+					+ " TV = " + vecSem[i].funcionTiempoVerde() );
+		}
+	}
+	
+	public void update(int pos){
+		temp = vecSem[pos].funcionTiempoVerde();
+		int carros = (int) (vecSem[pos].getCca() - temp * (Math.random()*0.3+0.7) );
+		
+		for(int i = 0; i<4 ; i++){
+			if(i == pos){
+				if(carros >= 0)
+					vecSem[pos].setCca(carros);
+				else
+					vecSem[pos].setCca(0);
+				
+				vecSem[pos].setTa(0);
+			}
+			else{
+				vecSem[i].setCca((int) (vecSem[i].getCca() + vecSem[i].getCce() * (Math.random()*0.6+0.7)));
+				vecSem[i].setTa(vecSem[i].getTa()+temp);
+			}			
+		}
+		update_peso();		
+	}
+	
+	public void update_peso(){
+		for(int i=0; i<4; i++){
+			if(vecSem[i].getTa() <= 60){
+				vecSem[i].setPeso3(1);
+			}else
+				if(vecSem[i].getTa() <= 110){
+					vecSem[i].setPeso3(2);
+				}else
+					{
+						vecSem[i].setPeso3(3);
+					}
+			
+			if(vecSem[i].getCca() <= 15){
+				vecSem[i].setPeso2(1);
+			}else
+				if(vecSem[i].getCca() <= 30){
+					vecSem[i].setPeso2(2);
+				}else
+					{
+						vecSem[i].setPeso2(3);
+					}
+			
+			if(vecSem[i].getCce() <= 10){
+				vecSem[i].setPeso1(1);
+			}else
+				if(vecSem[i].getCce() <= 15){
+					vecSem[i].setPeso1(2);
+				}else
+					{
+						vecSem[i].setPeso1(3);
+					}
+		}
 	}
 }
