@@ -59,21 +59,21 @@ public class Planificacion {
 			semaforo.setColorLuz("verde");
 			planAux.setOperador("CambiarLuz");
 			planAux.setAccion("Luz Verde");
-			planAux.setEstadofinal("Ambulancia pasa luz roja");
+			planAux.setEstadofinal(vof.getTipoV()+" pasa luz roja");
 			planAux.setNombre(semaforo.getNombre());
 			
 			if(vof.getTipoV().equals(Automovil.TipoVehiculo.Ambulancia)){	
-				planAux.setPrioridad(semaforo.getPeso1() + vof.getPrioridad());
+				planAux.setPrioridad(vof.getPrioridad());
 				planVe.add(planAux);		
 			}
 			
 			if(vof.getTipoV().equals(Automovil.TipoVehiculo.Bomberos)){
-				planAux.setPrioridad(semaforo.getPeso1() + vof.getPrioridad());
+				planAux.setPrioridad(vof.getPrioridad());
 				planVe.add(planAux);	
 			}
 			
 			if(vof.getTipoV().equals(Automovil.TipoVehiculo.Policia)){
-				planAux.setPrioridad(semaforo.getPeso1() + vof.getPrioridad());
+				planAux.setPrioridad(vof.getPrioridad());
 				planVe.add(planAux);	
 			}
 			
@@ -83,21 +83,21 @@ public class Planificacion {
 		else if(q3.hasSolution()){
 			planAux.setOperador("CambiarLuz");
 			planAux.setAccion("Luz Verde");
-			planAux.setEstadofinal("Ambulancia pasa luz roja");
+			planAux.setEstadofinal(vof.getTipoV()+" pasa luz roja");
 			planAux.setNombre(semaforo.getNombre());
 			
 			if(vof.getTipoV().equals(Automovil.TipoVehiculo.Ambulancia)){	
-				planAux.setPrioridad(semaforo.getPeso1() + vof.getPrioridad());
+				planAux.setPrioridad(vof.getPrioridad());
 				planVe.add(planAux);		
 			}
 			
 			if(vof.getTipoV().equals(Automovil.TipoVehiculo.Bomberos)){
-				planAux.setPrioridad(semaforo.getPeso1() + vof.getPrioridad());
+				planAux.setPrioridad(vof.getPrioridad());
 				planVe.add(planAux);	
 			}
 			
 			if(vof.getTipoV().equals(Automovil.TipoVehiculo.Policia)){
-				planAux.setPrioridad(semaforo.getPeso1() + vof.getPrioridad());
+				planAux.setPrioridad(vof.getPrioridad());
 				planVe.add(planAux);	
 			}
 		}	
@@ -105,21 +105,21 @@ public class Planificacion {
 		else if(q4.hasSolution()){
 			planAux.setOperador("CambiarLuz");
 			planAux.setAccion("Luz dejada en Verde");
-			planAux.setEstadofinal("Ambulancia pasa luz roja");
+			planAux.setEstadofinal( vof.getTipoV()+"  pasa luz roja");
 			planAux.setNombre(semaforo.getNombre());
 			
 			if(vof.getTipoV().equals(Automovil.TipoVehiculo.Ambulancia)){	
-				planAux.setPrioridad(semaforo.getPeso1() + vof.getPrioridad());
+				planAux.setPrioridad(vof.getPrioridad());
 				planVe.add(planAux);		
 			}
 			
 			if(vof.getTipoV().equals(Automovil.TipoVehiculo.Bomberos)){
-				planAux.setPrioridad(semaforo.getPeso1() + vof.getPrioridad());
+				planAux.setPrioridad(vof.getPrioridad());
 				planVe.add(planAux);	
 			}
 			
 			if(vof.getTipoV().equals(Automovil.TipoVehiculo.Policia)){
-				planAux.setPrioridad(semaforo.getPeso1() + vof.getPrioridad());
+				planAux.setPrioridad(vof.getPrioridad());
 				planVe.add(planAux);	
 			}
 			
@@ -197,13 +197,15 @@ public class Planificacion {
 		Semaforo sem2 = new Semaforo("semaforo4", 10, 12, 13, 4, 4, 5, 7,2);
 		sem2.setColorLuz("verde");
 		Automovil auto = new Automovil(1, 1, 2, 2, null, TipoCar.RIGHT, TipoVehiculo.Ambulancia);
-		
+		Automovil auto2 = new Automovil(1, 1, 2, 2, null, TipoCar.RIGHT, TipoVehiculo.Bomberos);
 		
 		
 		// Integracion con logica difusa
 		Prioridadv prio = new Prioridadv();
 		double [] prioridades;  
+		double [] prioridades2; 
 		double [] vector = new double[5];
+		double [] vector2 = new double[5];
 		
 		if( auto.getTipoV().equals(Automovil.TipoVehiculo.Ambulancia)){
 			
@@ -221,16 +223,39 @@ public class Planificacion {
 			
 		}
 		
+		if( auto2.getTipoV().equals(Automovil.TipoVehiculo.Ambulancia)){
+			
+			vector2[0] = 2;
+			
+		}else
+		if( auto2.getTipoV().equals(Automovil.TipoVehiculo.Bomberos)){
+			
+			vector2[0] = 5;
+			
+		}else
+		if( auto2.getTipoV().equals(Automovil.TipoVehiculo.Policia)){
+			
+			vector2[0] = 7;
+			
+		}
+		
 		vector[1]=0;
 		vector[2]=0;
 		vector[3]=0;
 		vector[4]=0;
 		
+		vector2[1]=0;
+		vector2[2]=0;
+		vector2[3]=0;
+		vector2[4]=0;
+		
 		prioridades = prio.crispInference(vector);
+		prioridades2 = prio.crispInference(vector2);
 		
 		auto.setPrioridad(prioridades[0]);
+		auto2.setPrioridad(prioridades2[0]);
 		
-		pl.OperadorCambiarLuz(sem, auto);
+		pl.OperadorCambiarLuz(sem, auto2);
 		pl.OperadorCambiarLuz(sem2, auto);
 		System.out.println(pl.planVe.size());
 		for (int i=0;i<pl.planVe.size();i++){
