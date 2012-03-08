@@ -21,6 +21,8 @@ public class Semaforo {
     private int tev; //Tiempo de luz verde Esperado
     private int timeVerdeV; //Tiempo verde "Verdadero"
     private int numSemaforo;
+    private String colorLuz; 
+    private int prioridadVehOf;
 	
     public Semaforo()
     {
@@ -38,6 +40,7 @@ public class Semaforo {
         this.ta = ta;
         this.tev = tev;
         this.numSemaforo = numSemaforo;
+      //  this.colorLuz = color;
     }
     
     public Semaforo(Semaforo semaforo){
@@ -141,5 +144,22 @@ public class Semaforo {
 	public void setNumSemaforo(int numSemaforo) {
 		this.numSemaforo = numSemaforo;
 	}
+
+	public String getColorLuz() {
+		return colorLuz;
+	}
+
+	public void setColorLuz(String colorLuz) {
+		this.colorLuz = colorLuz;
+	}
+
+	public int getPrioridadVehOf() {
+		return prioridadVehOf;
+	}
+
+	public void setPrioridadVehOf(int prioridad) {
+		this.prioridadVehOf = prioridad;
+	}
+	
 
 }
