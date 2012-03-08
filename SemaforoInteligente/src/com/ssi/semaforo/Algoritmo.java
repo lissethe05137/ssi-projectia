@@ -1,7 +1,14 @@
 package com.ssi.semaforo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.annotation.Resource.AuthenticationType;
+
+import com.ssi.object.Automovil;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class Algoritmo {
 	
@@ -163,4 +170,5 @@ public class Algoritmo {
 					}
 		}
 	}
+	
 }

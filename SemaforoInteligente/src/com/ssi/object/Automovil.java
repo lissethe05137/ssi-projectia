@@ -3,6 +3,7 @@ package com.ssi.object;
 import java.awt.Image;
 import java.awt.Rectangle;
 
+
 public class Automovil {
 
 	private int x;
@@ -12,13 +13,16 @@ public class Automovil {
 	private Image image;
 	public enum TipoCar { RIGHT, UP, LEFT, DOWN };
 	private TipoCar tipo;
+	public enum TipoVehiculo { Ambulancia, Policia, Bomberos  };
+	private TipoVehiculo tipoV;
+	private double prioridad;
 	
 	public Automovil()
 	{
 		
 	}
 	
-	public Automovil(int x, int y, int dx, int dy, Image image, TipoCar tipo)
+	public Automovil(int x, int y, int dx, int dy, Image image, TipoCar tipo, TipoVehiculo tipoV)
 	{
 		this.x = x;
 		this.y = y;
@@ -26,6 +30,7 @@ public class Automovil {
 		this.dy = dy;
 		this.image = image;
 		this.tipo = tipo;
+		this.tipoV = tipoV;
 	}
 	
 	public int getX() {
@@ -88,6 +93,21 @@ public class Automovil {
 
 	public void setTipo(TipoCar tipo) {
 		this.tipo = tipo;
+	}
+	
+	public TipoVehiculo getTipoV() {
+		return tipoV;
+	}
+	public void setTipoV(TipoVehiculo tipoV) {
+		this.tipoV = tipoV;
+	}
+
+	public double getPrioridad() {
+		return prioridad;
+	}
+
+	public void setPrioridad(double prioridad) {
+		this.prioridad = prioridad;
 	}
 	
 }
