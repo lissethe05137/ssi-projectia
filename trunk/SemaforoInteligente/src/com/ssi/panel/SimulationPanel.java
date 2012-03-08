@@ -11,13 +11,20 @@ import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import ui.Recompensa;
+
+import ui.SessionHibernate;
 
 import com.ssi.object.Automovil;
 import com.ssi.object.TrafficLight;
@@ -76,6 +83,9 @@ public class SimulationPanel extends JPanel{
 
 	public SimulationPanel() 
 	{
+		Session session = SessionHibernate.getInstance().getSession();
+		session.beginTransaction();
+		
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		ancho = d.width;
 		alto = d.height;
@@ -128,6 +138,19 @@ public class SimulationPanel extends JPanel{
 			valor.setRecompensa(-1000);
 		}
 		prioridades.add(valor);
+		
+		Calendar cal = Calendar.getInstance();
+		
+		valor.setHora(cal);
+		
+		System.out.println( "GUARDOOO" );
+		
+		session.save(valor);
+		
+		session.getTransaction().commit();
+		session.close();
+		
+		
 		
 		resultado = 0;
 		
@@ -500,6 +523,14 @@ public class SimulationPanel extends JPanel{
 					valor.setRecompensa(-1000);
 				}
 				prioridades.add(valor);
+				
+				Session session = SessionHibernate.getInstance().getSession();
+				session.beginTransaction();
+				
+				session.save(valor);
+				
+				session.getTransaction().commit();
+				session.close();
 				
 				resultado = 0;
 				
