@@ -1,6 +1,8 @@
 package com.ssi.planificacion;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import xfuzzy.Prioridadv;
@@ -21,8 +23,8 @@ public class Planificacion {
 	List<Plan> planVe = new ArrayList<Plan>();
 	List<Integer> plan = new ArrayList<Integer>();
 
-	public List<Integer> getPlan() {
-		return plan;
+	public List<Plan> getPlan() {
+		return planVe;
 	}
 
 	public boolean estadoInicial( Semaforo semaforo, Automovil Vo){
@@ -126,40 +128,7 @@ public class Planificacion {
 		}
 			
 	}
-		
-	
-	public List<Plan> ordenar (List<Plan> plan){
-			double max = plan.get(0).getPrioridad();
-			List<Plan> aux = new ArrayList<Plan>();
 			
-			int max1=0;
-			int tam = plan.size(); 
-			for(int i=0; i<plan.size();i++){
-
-				for(int j=0;j<plan.size();j++){
-					if(plan.get(j).getPrioridad()>=plan.get(max1).getPrioridad()){
-					    max1=j;
-						
-					}
-					
-				}
-
-				aux.add(plan.get(max1));
-		//		System.out.println(aux.size());
-				plan.remove(max1);
-				i=0;
-			}
-		
-		for(int i=0;i<aux.size();i++){
-			
-			//System.out.println(aux.get(i).getPrioridad());
-			
-		}
-		
-		return aux;
-	}
-	
-	
 	public void setPlan(Semaforo semaforo, Automovil vof ){
 			
 //		//Aplicar operador
@@ -189,6 +158,30 @@ public class Planificacion {
 			
 	}
 	
+	public void ordenar(){
+		
+        //ordenamos la lista por prioridad(variable tipo double)  
+        Collections.sort(planVe, new Comparator() {  
+  
+            public int compare(Object o1, Object o2) {  
+                Plan e1 = (Plan) o1;  
+                Plan e2 = (Plan) o2;  
+                double prioridad1 = e1.getPrioridad();  
+                double prioridad2 = e2.getPrioridad();  
+  
+                if (prioridad1 < prioridad2) {  
+                    return 1;  
+                } else if (prioridad1 > prioridad2) {  
+                    return -1;  
+                } else {  
+                    return 0;  
+                }  
+            }  
+        });
+		
+		
+	}
+	
 	public static void main(String[] args) {
         
 		Planificacion pl = new Planificacion();
@@ -196,16 +189,21 @@ public class Planificacion {
 		sem.setColorLuz("rojo");
 		Semaforo sem2 = new Semaforo("semaforo4", 10, 12, 13, 4, 4, 5, 7,2);
 		sem2.setColorLuz("verde");
+		Semaforo sem3 = new Semaforo("semaforo2", 12, 12, 13, 4, 4, 5, 7,3);
+		sem3.setColorLuz("verde");
 		Automovil auto = new Automovil(1, 1, 2, 2, null, TipoCar.RIGHT, TipoVehiculo.Ambulancia);
 		Automovil auto2 = new Automovil(1, 1, 2, 2, null, TipoCar.RIGHT, TipoVehiculo.Bomberos);
+		Automovil auto3 = new Automovil(1, 1, 2, 2, null, TipoCar.RIGHT, TipoVehiculo.Policia);
 		
 		
 		// Integracion con logica difusa
 		Prioridadv prio = new Prioridadv();
 		double [] prioridades;  
-		double [] prioridades2; 
+		double [] prioridades2;
+		double [] prioridades3;
 		double [] vector = new double[5];
 		double [] vector2 = new double[5];
+		double [] vector3 = new double[5];
 		
 		if( auto.getTipoV().equals(Automovil.TipoVehiculo.Ambulancia)){
 			
@@ -239,6 +237,22 @@ public class Planificacion {
 			
 		}
 		
+		if( auto3.getTipoV().equals(Automovil.TipoVehiculo.Ambulancia)){
+			
+			vector3[0] = 2;
+			
+		}else
+		if( auto3.getTipoV().equals(Automovil.TipoVehiculo.Bomberos)){
+			
+			vector3[0] = 5;
+			
+		}else
+		if( auto3.getTipoV().equals(Automovil.TipoVehiculo.Policia)){
+			
+			vector3[0] = 7;
+			
+		}
+		
 		vector[1]=0;
 		vector[2]=0;
 		vector[3]=0;
@@ -249,23 +263,31 @@ public class Planificacion {
 		vector2[3]=0;
 		vector2[4]=0;
 		
+		vector3[1]=0;
+		vector3[2]=0;
+		vector3[3]=0;
+		vector3[4]=0;
+		
 		prioridades = prio.crispInference(vector);
 		prioridades2 = prio.crispInference(vector2);
+		prioridades3 = prio.crispInference(vector3);
 		
 		auto.setPrioridad(prioridades[0]);
 		auto2.setPrioridad(prioridades2[0]);
+		auto3.setPrioridad(prioridades3[0]);
 		
 		pl.OperadorCambiarLuz(sem, auto2);
 		pl.OperadorCambiarLuz(sem2, auto);
-		System.out.println(pl.planVe.size());
+		pl.OperadorCambiarLuz(sem3, auto3);
+
+		pl.ordenar();  
+
+				
 		for (int i=0;i<pl.planVe.size();i++){
 
 			System.out.println(pl.planVe.get(i).getNombre()+" Operador: " + pl.planVe.get(i).getOperador()+" Accion: " + pl.planVe.get(i).getAccion()+" Estado Final: " + pl.planVe.get(i).getEstadofinal()+" Prioridad: " + pl.planVe.get(i).getPrioridad()+"\n");
 			
 		}
-		
-		
-		pl.ordenar(pl.planVe);
 		
     }
 }
