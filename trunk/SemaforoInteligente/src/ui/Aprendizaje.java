@@ -24,12 +24,16 @@ public class Aprendizaje extends JPanel implements ItemListener{
 	int aux =0;
 	int prio;
 	int via;
-	List<Recompensa> prioridades = new ArrayList<Recompensa>();
+	List<Recompensa> listRecompensa = new ArrayList<Recompensa>();
+	List<Trafico> listTrafico = new ArrayList<Trafico>();
+	List<Trafico> listPrioridad = new ArrayList<Trafico>();
 	
 	int medicion = 0;
 	int resultado;
 	
-	Recompensa valor;		
+	Recompensa valor;
+	Trafico trafico;
+	Trafico prioridad;
 	Random rnd = new Random();
 	
 	JLabel s1 = new JLabel();
@@ -46,16 +50,24 @@ public class Aprendizaje extends JPanel implements ItemListener{
 			cola[i]=0;
 		}
 		
-		cola[0] += rnd.nextDouble() * 20.0;
-		cola[1] += rnd.nextDouble() * 30.0;
-		cola[2] += rnd.nextDouble() * 20.0;
-		cola[3] += rnd.nextDouble() * 15.0;
-		
-		System.out.println("");
-		System.out.println("Hora :"+hora);
-		for( int i = 0; i<4; i++){
-			System.out.println(cola[i]);
-		}
+//		cola[0] += rnd.nextDouble() * 10.0;
+//		cola[1] += rnd.nextDouble() * 15.0;
+//		cola[2] += rnd.nextDouble() * 10.0;
+//		cola[3] += rnd.nextDouble() * 7.0;
+//		
+//		trafico = new Trafico();
+//		trafico.setS1(cola[0]);
+//		trafico.setS2(cola[1]);
+//		trafico.setS3(cola[2]);
+//		trafico.setS4(cola[3]);
+//		
+//		listTrafico.add(trafico);
+//		
+//		System.out.println("");
+//		System.out.println("Hora :"+hora);
+//		for( int i = 0; i<4; i++){
+//			System.out.println(cola[i]);
+//		}
 		
         JButton botoncalcular = new JButton("Aprender");
         this.add(botoncalcular);
@@ -90,10 +102,18 @@ public class Aprendizaje extends JPanel implements ItemListener{
 				
 				valor  = new Recompensa();
 				
-				cola[0] +=  (rnd.nextDouble() * 20.0);
-				cola[1] +=  (rnd.nextDouble() * 40.0);
-				cola[2] +=  (rnd.nextDouble() * 20.0);
-				cola[3] +=  (rnd.nextDouble() * 15.0);
+				cola[0] +=  (rnd.nextDouble() * 10.0);
+				cola[1] +=  (rnd.nextDouble() * 15.0) + 5;
+				cola[2] +=  (rnd.nextDouble() * 10.0);
+				cola[3] +=  (rnd.nextDouble() * 7.0);
+				
+				trafico = new Trafico();
+				trafico.setS1(cola[0]);
+				trafico.setS2(cola[1]);
+				trafico.setS3(cola[2]);
+				trafico.setS4(cola[3]);
+				
+				listTrafico.add(trafico);
 				
 				prio = 0;
 				
@@ -117,19 +137,19 @@ public class Aprendizaje extends JPanel implements ItemListener{
 				}				
 				
 				if(medicion < aux){
-					valor.setRecompensa(1000);					
-				}
+					valor.setRecompensa(2);					
+				}else
 				if(medicion == aux){
-					valor.setRecompensa(10);						
-				}
-				if(medicion > aux && medicion <= 100){
-					valor.setRecompensa(100);						
-				}
-				if(medicion > aux+45){
-					valor.setRecompensa(-1000);
+					valor.setRecompensa(1);						
+				}else
+				if(medicion > aux && medicion <= 40){
+					valor.setRecompensa(-1);						
+				}else
+				if(medicion > aux){
+					valor.setRecompensa(-2);
 				}
 				
-				prioridades.add(valor);				
+				listRecompensa.add(valor);				
 				aux = medicion;				
 			
 				System.out.println("");
@@ -140,14 +160,14 @@ public class Aprendizaje extends JPanel implements ItemListener{
 				System.out.println("Trafico : "+medicion);
 				System.out.println("Mas larga : "+prio);
 								
-				cola[0] -=  10;
+				cola[0] -=  9;
 				cola[1] -=  15;
-				cola[2] -=  10;
-				cola[3] -=  7;
+				cola[2] -=  9;
+				cola[3] -=  6;
 				
 				for( int i =0; i<4; i++){
 					if(prio == cola[i])
-						cola[i] -= 8;
+						cola[i] -= 4;
 				}
 				
 				for( int i =0; i<4; i++){
@@ -158,7 +178,7 @@ public class Aprendizaje extends JPanel implements ItemListener{
 		});
         
         
-        JButton botoncalcular2 = new JButton("Aprender +50");
+        JButton botoncalcular2 = new JButton("Aprender +30");
         this.add(botoncalcular2);
         botoncalcular2.addMouseListener(new MouseListener() {
 			
@@ -189,14 +209,22 @@ public class Aprendizaje extends JPanel implements ItemListener{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				for(int j = 0; j<50; j++){
+				for(int j = 0; j<30; j++){
 				
 					valor  = new Recompensa();
 					
-					cola[0] +=  (rnd.nextDouble() * 20.0);
-					cola[1] +=  (rnd.nextDouble() * 40.0);
-					cola[2] +=  (rnd.nextDouble() * 20.0);
-					cola[3] +=  (rnd.nextDouble() * 15.0);
+					cola[0] +=  (rnd.nextDouble() * 10.0);
+					cola[1] +=  (rnd.nextDouble() * 15.0) + 5;
+					cola[2] +=  (rnd.nextDouble() * 10.0);
+					cola[3] +=  (rnd.nextDouble() * 7.0);
+					
+					trafico = new Trafico();
+					trafico.setS1(cola[0]);
+					trafico.setS2(cola[1]);
+					trafico.setS3(cola[2]);
+					trafico.setS4(cola[3]);
+					
+					listTrafico.add(trafico);
 					
 					prio = 0;
 					
@@ -220,19 +248,19 @@ public class Aprendizaje extends JPanel implements ItemListener{
 					}				
 					
 					if(medicion < aux){
-						valor.setRecompensa(1000);					
-					}
+						valor.setRecompensa(2);					
+					}else
 					if(medicion == aux){
-						valor.setRecompensa(10);						
-					}
-					if(medicion > aux && medicion <= 100){
-						valor.setRecompensa(100);						
-					}
-					if(medicion > aux+45){
-						valor.setRecompensa(-1000);
+						valor.setRecompensa(1);						
+					}else
+					if(medicion > aux && medicion <= 40){
+						valor.setRecompensa(-1);						
+					}else
+					if(medicion > aux){
+						valor.setRecompensa(-2);
 					}
 					
-					prioridades.add(valor);				
+					listRecompensa.add(valor);				
 					aux = medicion;				
 				
 					System.out.println("");
@@ -243,14 +271,14 @@ public class Aprendizaje extends JPanel implements ItemListener{
 					System.out.println("Trafico : "+medicion);
 					System.out.println("Mas larga : "+prio);
 									
-					cola[0] -=  10;
+					cola[0] -=  9;
 					cola[1] -=  15;
-					cola[2] -=  10;
-					cola[3] -=  7;
+					cola[2] -=  9;
+					cola[3] -=  6;
 					
 					for( int i =0; i<4; i++){
 						if(prio == cola[i])
-							cola[i] -= 8;
+							cola[i] -= 4;
 					}
 					
 					for( int i =0; i<4; i++){
@@ -293,29 +321,33 @@ public class Aprendizaje extends JPanel implements ItemListener{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				resultado = 0;
-				
-				for(int i = 0; i<prioridades.size(); i++){					
-					entreno[prioridades.get(i).getCola()] += prioridades.get(i).getRecompensa();
-					System.out.println(prioridades.get(i).getCola()+"  "+prioridades.get(i).getRecompensa());					
-				}
-				
 				System.out.println("-------");
-				for(int i = 0; i<4; i++){
-					
-					if ( entreno[i] > resultado){
-						resultado = entreno[i];
-					}
-					System.out.println(entreno[i]);	
-					
-				}
-				System.out.println("RESULTADO DEL ENTRENAMIENTO "+resultado);				
-				s1.setText("Semaforo 1 : "+ Integer.toString(entreno[0]));
-				s2.setText("Semaforo 2 : "+ Integer.toString(entreno[1]));
-				s3.setText("Semaforo 3 : "+ Integer.toString(entreno[2]));
-				s4.setText("Semaforo 4 : "+ Integer.toString(entreno[3]));
+
+				save_file_trafico();
+				save_file_recompensa();
+				save_file_prioridad();
+				
+				if(resultado<listPrioridad.get(listPrioridad.size()-1).getS1())
+					resultado = listPrioridad.get(listPrioridad.size()-1).getS1();
+				if(resultado<listPrioridad.get(listPrioridad.size()-1).getS2())
+					resultado = listPrioridad.get(listPrioridad.size()-1).getS2();
+				if(resultado<listPrioridad.get(listPrioridad.size()-1).getS3())
+					resultado = listPrioridad.get(listPrioridad.size()-1).getS3();
+				if(resultado<listPrioridad.get(listPrioridad.size()-1).getS4())
+					resultado = listPrioridad.get(listPrioridad.size()-1).getS4();
+
+				System.out.println("RESULTADO DEL ENTRENAMIENTO ");
+				System.out.println(""+listPrioridad.get(listPrioridad.size()-1).getS1());
+				System.out.println(""+listPrioridad.get(listPrioridad.size()-1).getS2());
+				System.out.println(""+listPrioridad.get(listPrioridad.size()-1).getS3());
+				System.out.println(""+listPrioridad.get(listPrioridad.size()-1).getS4());
+				System.out.println("Resultado : "+resultado);
+
+				s1.setText("Semaforo 1 : "+ Integer.toString(listPrioridad.get(listPrioridad.size()-1).getS1()));
+				s2.setText("Semaforo 2 : "+ Integer.toString(listPrioridad.get(listPrioridad.size()-1).getS2()));
+				s3.setText("Semaforo 3 : "+ Integer.toString(listPrioridad.get(listPrioridad.size()-1).getS3()));
+				s4.setText("Semaforo 4 : "+ Integer.toString(listPrioridad.get(listPrioridad.size()-1).getS4()));
 				r.setText("+Prioridad : "+resultado);
-				save_file();
 
 			}
 		});	
@@ -329,18 +361,115 @@ public class Aprendizaje extends JPanel implements ItemListener{
         
 	}
 	
-	public void save_file()
+	public void save_file_trafico()
     {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try
         {
-            fichero = new FileWriter("bd.txt");
+            fichero = new FileWriter("trafico.txt",false);
             pw = new PrintWriter(fichero);
 
-			for(int i = 0; i<4; i++){
+			for(int i = 0; i<listTrafico.size(); i++){
 				
-				pw.println(entreno[i]);
+				pw.print(listTrafico.get(i).getS1());
+				pw.print(",");
+				pw.print(listTrafico.get(i).getS2());
+				pw.print(",");
+				pw.print(listTrafico.get(i).getS3());
+				pw.print(",");
+				pw.print(listTrafico.get(i).getS4());
+				pw.println("");
+				
+			}
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           // Nuevamente aprovechamos el finally para 
+           // asegurarnos que se cierra el fichero.
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+    }
+	
+	public void save_file_recompensa()
+    {
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            fichero = new FileWriter("recompensa.txt", false);
+            pw = new PrintWriter(fichero);
+
+			for(int i = 0; i<listRecompensa.size(); i++){
+				
+				pw.print(listRecompensa.get(i).getCola());
+				pw.print(",");
+				pw.print(listRecompensa.get(i).getRecompensa());
+				pw.println("");
+				
+			}
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           // Nuevamente aprovechamos el finally para 
+           // asegurarnos que se cierra el fichero.
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+    }
+	
+	public void save_file_prioridad()
+    {
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        Trafico prioridad = new Trafico();
+		prioridad.setS1(0);
+		prioridad.setS2(0);
+		prioridad.setS3(0);
+		prioridad.setS4(0);
+		
+		listPrioridad.clear();
+        try
+        {
+            fichero = new FileWriter("prioridad.txt", false);
+            pw = new PrintWriter(fichero);
+
+			for(int i = 0; i<listRecompensa.size(); i++){
+
+				if(listRecompensa.get(i).getCola() == 0){
+					prioridad.setS1(prioridad.getS1()+listRecompensa.get(i).getRecompensa());
+				}else
+				if(listRecompensa.get(i).getCola() == 1){
+					prioridad.setS2(prioridad.getS2()+listRecompensa.get(i).getRecompensa());
+				}else
+				if(listRecompensa.get(i).getCola() == 2){
+					prioridad.setS3(prioridad.getS3()+listRecompensa.get(i).getRecompensa());
+				}else
+				if(listRecompensa.get(i).getCola() == 3){
+					prioridad.setS4(prioridad.getS4()+listRecompensa.get(i).getRecompensa());
+				}
+				
+				pw.print(prioridad.getS1());
+				pw.print(",");
+				pw.print(prioridad.getS2());
+				pw.print(",");
+				pw.print(prioridad.getS3());
+				pw.print(",");
+				pw.print(prioridad.getS4());
+				pw.println("");
+				listPrioridad.add(prioridad);
+				
 				
 			}
 
