@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate"/>
 	<classpathentry kind="lib" path="/usr/lib/swi-prolog/lib/jpl.jar"/>
 	<classpathentry kind="lib" path="/Hibernate/lib/antlr-2.7.6.jar"/>
 	<classpathentry kind="lib" path="/Hibernate/lib/c3p0-0.9.1.jar"/>
