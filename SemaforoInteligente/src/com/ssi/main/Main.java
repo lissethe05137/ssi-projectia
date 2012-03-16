@@ -1,43 +1,72 @@
 package com.ssi.main;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.WindowConstants;
 
 import com.ssi.panel.SimulationPanel;
-import com.ssi.semaforo.Semaforo;
+import com.ssi.panel.VentanaEvento;
 
-public class Main {
+public class Main extends JFrame{
 
-	private static List<Semaforo> listSecuencia = new ArrayList<Semaforo>();
-
-	public static void main( String argv[] )
-	{
-//		Algoritmo algoritmo = new Algoritmo();
-//		listSecuencia = algoritmo.algoritmoBusqueda();
-//		
-//		System.out.println( "\n\n\n" );
-//		for( int i = 0; i < listSecuencia.size(); i++ )
-//			System.out.println( listSecuencia.get(i).getNombre() + " -> " + listSecuencia.get(i).getTimeVerdeV() );
+	private JMenuBar barra;
+	private JMenu archivo,ayuda;
+	private JMenuItem evento,salir,creditos,help;
+	
+	
+	public Main() {
 		
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		
-		JFrame v = new JFrame();
-		v.setSize(d.width, d.height);
-//		v.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setSize(d.width, d.height);
 		
-		SimulationPanel simulationPanel = new SimulationPanel();
+		this.getContentPane().add(new SimulationPanel());
 		
-		v.getContentPane().add(simulationPanel);
-		v.add(simulationPanel, BorderLayout.CENTER); 
-        v.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        v.setVisible(true);
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setVisible(true);
 		
+		barra = new JMenuBar();
+		archivo = new JMenu("Archivo");
+		ayuda = new JMenu("Ayuda");
+		barra.add(archivo);
+		barra.add(ayuda);
+		evento = new JMenuItem("Iniciar Evento");
+		salir = new JMenuItem("Salir");
+		archivo.add(evento);
+		archivo.add(salir);
+		help = new JMenuItem("Ayuda");
+		creditos = new JMenuItem("Creditos");
+		ayuda.add(help);
+		ayuda.add(creditos);
+		
+		this.setJMenuBar(barra);
+		
+		evento.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				VentanaEvento ve = new VentanaEvento();
+			}
+		});
+		
+		salir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		
+		
+	}
+	
+	public static void main( String argv[] )
+	{
+		new Main();	
 	}
 
 }

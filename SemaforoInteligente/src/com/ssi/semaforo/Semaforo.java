@@ -134,7 +134,7 @@ public class Semaforo {
 	
 	public int funcionTiempoVerde()
 	{
-	    return tev -( ((cce-cca)/cce)*tev );
+	    return (tev -( ((cce-cca)/cce)*tev ));
 	}
 
 	public int getNumSemaforo() {

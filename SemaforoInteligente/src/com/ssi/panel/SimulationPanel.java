@@ -439,6 +439,7 @@ public class SimulationPanel extends JPanel{
 		g.drawImage(vehiculo4.getImage(), vehiculo4.getX(), vehiculo4.getY(), this);
 		
 		
+		
 		//		if( listBotonera1.get(0).isPulsado() ) { 
 		//			g.drawRect(1,1/*listBotonera1.get(0).getX(), listBotonera1.get(0).getY()*/, //
 		//					   listBotonera1.get(0).getAncho(), listBotonera1.get(0).getAlto());
