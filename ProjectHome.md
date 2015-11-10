@@ -1,0 +1,1 @@
+Es un proyecto basado en la simulación de un Agente Inteligente, el agente es un Semáforo.
